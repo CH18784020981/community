@@ -12,6 +12,12 @@ public interface DiscussPostMapper {
 
     //@Param注解用于给参数取别名
     //如果只有一个参数，并且在if里面使用，则必须取别名
+
+    /*
+     *
+     * @param userId
+     * @return 返回userId下的discuss条数
+     */
     int selectDiscussPostRows(@Param("userId") int userId);
 
 }

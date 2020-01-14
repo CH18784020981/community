@@ -27,7 +27,7 @@ public class MapperTest {
 
     @Test
     public void testSelectUser() {
-        User user = userMapper.selectById(1);
+        User user = userMapper.selectByName("test");
         System.out.println(user);
     }
 
@@ -43,4 +43,5 @@ public class MapperTest {
         int i = discussPostMapper.selectDiscussPostRows(0);
         System.out.println(i);
     }
+
 }
