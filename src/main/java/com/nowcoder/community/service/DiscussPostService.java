@@ -7,6 +7,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * 话题查询service
+ */
 @Service
 public class DiscussPostService {
     @Autowired

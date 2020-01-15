@@ -2,8 +2,10 @@ package com.nowcoder.community.MapperTest;
 
 import com.nowcoder.community.CommunityApplication;
 import com.nowcoder.community.dao.DiscussPostMapper;
+import com.nowcoder.community.dao.LoginTicketMapper;
 import com.nowcoder.community.dao.UserMapper;
 import com.nowcoder.community.entity.DiscussPost;
+import com.nowcoder.community.entity.LoginTicket;
 import com.nowcoder.community.entity.User;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,6 +14,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.Date;
 import java.util.List;
 
 @RunWith(SpringRunner.class)
@@ -24,6 +27,8 @@ public class MapperTest {
     private UserMapper userMapper;
     @Autowired
     private DiscussPostMapper discussPostMapper;
+    @Autowired
+    private LoginTicketMapper loginTicketMapper;
 
     @Test
     public void testSelectUser() {
@@ -44,4 +49,31 @@ public class MapperTest {
         System.out.println(i);
     }
 
+    @Test
+    public void testLoginTicketInsert() {
+        LoginTicket loginTicket = new LoginTicket();
+//        loginTicket.setId(1);
+        loginTicket.setUserId(101);
+        loginTicket.setExpired(new Date(System.currentTimeMillis() + 1000 * 60 * 10));
+        loginTicket.setStatus(0);
+        loginTicket.setTicket("nihao");
+        int i = loginTicketMapper.insertLoginTicket(loginTicket);
+        System.out.println(i);
+    }
+    @Test
+    public void testLoginTicketSlect() {
+        LoginTicket loginTicket = new LoginTicket();
+
+//        loginTicket.setId(1);
+        String nihao = "nihao";
+        LoginTicket ticket = loginTicketMapper.selectByTicket(nihao);
+        System.out.println(ticket);
+    }
+    @Test
+    public void testLoginTicketUpdate() {
+        LoginTicket loginTicket = new LoginTicket();
+        int nihao = loginTicketMapper.updateStatus("nihao", 1);
+        System.out.println(nihao);
+
+    }
 }

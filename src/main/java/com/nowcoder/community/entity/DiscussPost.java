@@ -3,6 +3,9 @@ package com.nowcoder.community.entity;
 import javax.xml.crypto.Data;
 import java.util.zip.DataFormatException;
 
+/**
+ *讨论话题实体类
+ */
 public class DiscussPost {
 
     private int id;
