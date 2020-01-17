@@ -3,7 +3,7 @@ package com.nowcoder.community.entity;
 import java.util.Date;
 
 /**
- * 登陆凭证
+ * 登陆凭证，让浏览器记住你
  */
 public class LoginTicket {
     private int id;

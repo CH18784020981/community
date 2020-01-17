@@ -9,8 +9,7 @@ import org.springframework.context.annotation.Configuration;
 import java.util.Properties;
 
 /**
- * 生成验证码的
- * 配置类，让kaptcha配置进入springboot，因为kaptcha没有被springboot整合
+ * 生成验证码的配置类，让kaptcha配置进入springboot，因为kaptcha没有被springboot整合
  */
 @Configuration
 public class KaptchaConfig {

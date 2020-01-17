@@ -4,6 +4,7 @@ package com.nowcoder.community.service;
 import com.nowcoder.community.dao.LoginTicketMapper;
 import com.nowcoder.community.dao.UserMapper;
 
+import com.nowcoder.community.entity.LoginTicket;
 import com.nowcoder.community.entity.User;
 import com.nowcoder.community.util.CommunityConstant;
 import com.nowcoder.community.util.CommunityUtil;
@@ -131,9 +132,17 @@ public class UserService implements CommunityConstant {
         }
     }
 
-
-    public Map<String, Object> login(String username, String password) {
+    /**
+     * 登陆
+     *
+     * @param username       传入姓名
+     * @param password       传入密码
+     * @param expiredSeconds 传入凭证超时时间
+     * @return 返回一种多个可能的map集合
+     */
+    public Map<String, Object> login(String username, String password, int expiredSeconds) {
         Map<String, Object> map = new HashMap<>();
+        //验证空值
         if (StringUtils.isBlank(username)) {
             map.put("usernameMsg", "账号不能为空");
             return map;
@@ -142,6 +151,62 @@ public class UserService implements CommunityConstant {
             map.put("passwordMsg", "密码不能为空");
             return map;
         }
+        //验证账号存在
+        User user = userMapper.selectByName(username);
+        if (user == null) {
+            map.put("usernameMsg", "该账号不存在");
+            return map;
+        }
+        //验证状态
+        if (user.getStatus() == 0) {
+            map.put("usernameMsg", "该账号未激活");
+            return map;
+        }
+        //验证密码
+        password = CommunityUtil.md5(password) + user.getSalt();
+        if (!user.getPassword().equals(password)) {
+            map.put("passwordMsg", "密码不正确");
+        }
+        //生成登陆凭证
+        LoginTicket loginTicket = new LoginTicket();
+        loginTicket.setUserId(user.getId());
+        loginTicket.setTicket(CommunityUtil.generate());
+        loginTicket.setStatus(0);
+        loginTicket.setExpired(new Date(System.currentTimeMillis() + expiredSeconds * 1000));
+        loginTicketMapper.insertLoginTicket(loginTicket);
+
+        map.put("ticket", loginTicket.getTicket());
         return map;
     }
+
+    /**
+     * 退出登陆
+     *
+     * @param ticket 传入唯一ticket，在数据库更改它的status
+     */
+    public void logout(String ticket) {
+        loginTicketMapper.updateStatus(ticket, 1);
+    }
+
+    /**
+     * 查询LoginTicket
+     *
+     * @param ticket 传入指定参数ticket
+     * @return 返回LoginTicket对象
+     */
+    public LoginTicket findLoginTicket(String ticket) {
+        return loginTicketMapper.selectByTicket(ticket);
+    }
+
+    /**
+     * 修改headerUrl（头像路径）
+     * @param userId 传入userId
+     * @param headerUrl 传入新的头像路径
+     * @return 返回行数
+     */
+    public int updateHead(int userId, String headerUrl) {
+        return userMapper.updateHeader(userId, headerUrl);
+    }
+
+
 }

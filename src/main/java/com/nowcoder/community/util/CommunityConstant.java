@@ -16,4 +16,12 @@ public interface CommunityConstant {
      * 激活失败
      */
     int ACTIVATION_FAILURE = 2;
+    /**
+     *默认状态下的登陆超时时间
+     */
+    int DEFAULT_EXPIRED_SECONDS = 3600 * 12;
+    /**
+     * 记住我状态下的登录凭证超时时间
+     */
+    int REMEMBER_EXPIRED_SECONDS = 3600 * 24 * 100;
 }
