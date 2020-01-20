@@ -23,4 +23,10 @@ public interface DiscussPostMapper {
      */
     int selectDiscussPostRows(@Param("userId") int userId);
 
+    /**
+     *
+     * @param discussPost DiscussPost对象
+     * @return 返回当前条数
+     */
+    int insertDiscussPost(DiscussPost discussPost);
 }

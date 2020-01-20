@@ -1,0 +1,2 @@
+2020-01-19 10:01:51,461 WARN [http-nio-8080-exec-10] o.s.w.s.m.s.DefaultHandlerExceptionResolver [AbstractHandlerExceptionResolver.java:199] Resolved [org.springframework.web.HttpRequestMethodNotSupportedException: Request method 'GET' not supported]
+2020-01-19 10:01:52,891 WARN [http-nio-8080-exec-1] o.s.w.s.m.s.DefaultHandlerExceptionResolver [AbstractHandlerExceptionResolver.java:199] Resolved [org.springframework.web.HttpRequestMethodNotSupportedException: Request method 'GET' not supported]
